@@ -1,10 +1,11 @@
+import config from './config';
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import authenticationHandler from './authentication/authentication.handler';
 import authenticationRouter from './authentication/authentication.router';
 
-const port = 3000;
+const  { port } = config.server;
 
 class Server {
   public app: Application;
