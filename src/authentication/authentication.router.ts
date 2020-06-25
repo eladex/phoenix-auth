@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import authHandler from './authentication.handler';
+import { authenticate, handleUser } from './authentication.handler';
 
 const router = Router();
 
-router.get('/login', authHandler.authenticate());
-router.post('/callback', authHandler.authenticate(), authHandler.handleUser);
+router.get('/login', authenticate());
+router.post('/callback', authenticate(), handleUser);
 
 export default router;
