@@ -13,14 +13,14 @@ const {
   secret
 } = config.authentication;
 
-function initialize() {
+export function initialize() {
   passport.use(new ShragaStrategy({ shragaURL }, (profile: any, done: any) => {
     done(null, profile);
   }));
   return passport.initialize();
 }
 
-function handleUser(req: Request, res: Response) {
+export function handleUser(req: Request, res: Response) {
   const iat = Date.now() / 1000;
   const exp = iat + minutesExpires * MINUTE;
 
@@ -34,7 +34,7 @@ function handleUser(req: Request, res: Response) {
   res.redirect(redirectTo);
 }
 
-function authenticate() {
+export function authenticate() {
   return passport.authenticate('shraga', { session: false });
 }
 
