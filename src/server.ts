@@ -2,8 +2,9 @@ import config from './config';
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import authenticationHandler from './authentication/authentication.handler';
+// import authenticationHandler from './authentication/authentication.handler';
 import authenticationRouter from './authentication/authentication.router';
+import authenticator from './authentication/shragaJWTAuthenticator';
 
 const  { port } = config.server;
 
@@ -28,11 +29,15 @@ class Server {
   }
 
   private initializeAuthentication() {
-    this.app.use(authenticationHandler.initialize());
+    // this.app.use(authenticationHandler.initialize());
     this.app.use('/auth', authenticationRouter);
   }
 
   private configureRoutes() {
+    this.app.get('/error', (req: Request, res: Response) => res.send('Im an error'));
+    this.app.use('/api', authenticator.authenticate());
+    this.app.all('/api/*', (req: Request, res: Response) => res.send('some api route'))
+    this.app.use(authenticator.authenticate({ redirectToOriginalRoute: true }));
     this.app.get('/', (req: Request, res: Response) => res.send('home'));
     this.app.all('*', (req: Request, res: Response) => res.send(req.path));
   }
