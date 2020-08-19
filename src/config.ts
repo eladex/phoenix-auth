@@ -6,10 +6,11 @@ const config = {
     port: +(process.env.PORT || 3000),
   },
   authentication: {
-    token: process.env.TOKEN || 'phx-token',
+    token: process.env.TOKEN || 'shitty-token',
     secret: process.env.SECRET_KEY || 'blue-nitro-the-jello',
     minutesExpires: +(process.env.TOKEN_MINUTES_EXPIRE || 2),
     shragaURL: process.env.SHRAGA_URL || 'http://localhost:3000',
+    callbackURL: '/auth/callback'
   },
   clientEndpoint: process.env.CLIENT_ENDPOINT || '/',
 };
