@@ -18,16 +18,8 @@ const algorithm = 'HS256';
 const strategyName = 'shraga';
 const MINUTE = 60;
 const defaultSuccessRedirect = config.clientEndpoint;
-// const defaultConfig: ShragaAuthenticatorConfig = {
-//   cookieName: 'token',
-//   cookieSecret: 'nitro',
-//   cookieExpiresMinutes: 3,
-// };
 
-
-
-
-export class ShragaJWTAuthenticator implements IAuthenticator {
+class ShragaJWTAuthenticator implements IAuthenticator {
 
   private config: ShragaAuthenticatorConfig;
 
@@ -66,8 +58,8 @@ export class ShragaJWTAuthenticator implements IAuthenticator {
 
   /**
    * Authenticate a user with the passport-shraga strategy.
-   * handles the strategy callback: responds with 
-   * a signed cookie upon success and with an error / redirect when authentication fails.
+   * handles the strategy callback: responds with a signed cookie 
+   * upon success and with an error / redirect when authentication fails.
    * @param req 
    * @param res 
    * @param next 
@@ -136,15 +128,16 @@ const {
   minutesExpires: cookieExpiresMinutes,
   secret: cookieSecret,
   token: cookieName,
-  shragaURL
+  shragaURL,
+  callbackURL
 } = config.authentication;
 
-const authenticator: IAuthenticator = new ShragaJWTAuthenticator({
+const authenticator = new ShragaJWTAuthenticator({
   shragaURL,
   cookieExpiresMinutes,
   cookieSecret,
   cookieName,
-  callbackURL: '/auth/callback',
+  callbackURL,
 });
 
 export default authenticator;
