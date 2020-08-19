@@ -2,9 +2,7 @@ import config from './config';
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-// import authenticationHandler from './authentication/authentication.handler';
-import authenticationRouter from './authentication/authentication.router';
-import authenticator from './authentication/shragaJWTAuthenticator';
+import { authenticator, router as authenticationRouter } from './authentication'
 
 const  { port } = config.server;
 
